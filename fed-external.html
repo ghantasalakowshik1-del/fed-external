@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login {
+            background: white;
+            padding: 30px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        button {
+            padding: 10px 25px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login">
+    <h2>Login Page</h2>
+
+    <input type="email" id="email"
+           placeholder="Enter Email">
+
+    <input type="password" id="password"
+           placeholder="Enter Password">
+
+    <button onclick="login()">Login</button>
+
+    <p id="message"></p>
+</div>
+
+<script>
+    // Store users in Local Storage
+    const users = [
+        {
+            email: "admin@gmail.com",
+            password: "12345"
+        },
+        {
+            email: "user@gmail.com",
+            password: "user123"
+        }
+    ];
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    // Login function
+    function login() {
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+
+        let storedUsers = JSON.parse(
+            localStorage.getItem("users")
+        );
+
+        let user = storedUsers.find(
+            u => u.email === email &&
+                 u.password === password
+        );
+
+        let message = document.getElementById("message");
+
+        if (user) {
+            message.style.color = "green";
+            message.innerHTML = "Login Successful!";
+        } else {
+            message.style.color = "red";
+            message.innerHTML = "Invalid Email or Password!";
+        }
+    }
+</script>
+
+</body>
+</html>
